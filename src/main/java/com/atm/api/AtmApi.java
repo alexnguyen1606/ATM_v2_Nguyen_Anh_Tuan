@@ -18,18 +18,13 @@ public class AtmApi {
     @PutMapping("/{id}/pick-money")
     public ResponseEntity<String> pickMoney(@PathVariable("id") Long atmId, @RequestBody Account account){
 
-            Thread thread = new PickMoneyThread(atmId,account)
-                {
-                    public void run() {
+        try {
+            atmProcessor.pickMoney(atmId,account);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.OK);
+        }
 
-                        try {
-                            atmProcessor.pickMoney(atmId,account);
-                        } catch (Exception e) {
-                         e.printStackTrace();
-                        }
-                    }
-                };
-            thread.start();
 
         return new ResponseEntity<>("Success",HttpStatus.OK);
     }

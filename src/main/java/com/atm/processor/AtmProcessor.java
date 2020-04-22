@@ -7,6 +7,7 @@ import com.atm.service.impl.AccountService;
 import com.atm.service.impl.AtmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AtmProcessor {
@@ -14,8 +15,8 @@ public class AtmProcessor {
     private AtmService atmService;
     @Autowired
     private AccountService accountService;
-
-    public synchronized Long pickMoney(Long atmId, Account account) throws Exception {
+    @Transactional
+    public  Long pickMoney(Long atmId, Account account) throws Exception {
 
         AtmEntity atmEntity = atmService.findByIdAndStatus(atmId,1);
         if (atmEntity==null){
@@ -31,8 +32,16 @@ public class AtmProcessor {
         if (atmEntity.getTotalMoney()<account.getAmountOfMoney()){
             throw new Exception("Atm not enought money!");
         }
-        accountService.pickMoney(accountEntity,account.getAmountOfMoney());
-        atmService.pickMoney(atmEntity,account.getAmountOfMoney());
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                accountService.pickMoney(accountEntity,account.getAmountOfMoney());
+                atmService.pickMoney(atmEntity,account.getAmountOfMoney());
+            }
+        };
+        thread.start();
+
+
         return account.getAmountOfMoney();
     }
 }
