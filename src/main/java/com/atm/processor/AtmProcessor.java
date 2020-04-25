@@ -16,7 +16,7 @@ public class AtmProcessor {
     @Autowired
     private AccountService accountService;
     @Transactional
-    public  Long pickMoney(Long atmId, Account account) throws Exception {
+    public Long pickMoney(Long atmId, Account account) throws Exception {
 
         AtmEntity atmEntity = atmService.findByIdAndStatus(atmId,1);
         if (atmEntity==null){
@@ -34,7 +34,7 @@ public class AtmProcessor {
         }
         Thread thread = new Thread(){
             @Override
-            public void run() {
+            public synchronized void run() {
                 accountService.pickMoney(accountEntity,account.getAmountOfMoney());
                 atmService.pickMoney(atmEntity,account.getAmountOfMoney());
             }

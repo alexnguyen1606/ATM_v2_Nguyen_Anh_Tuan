@@ -19,13 +19,13 @@ public class AtmApi {
     public ResponseEntity<String> pickMoney(@PathVariable("id") Long atmId, @RequestBody Account account){
 
         try {
-            atmProcessor.pickMoney(atmId,account);
+           Long amountOfMoney= atmProcessor.pickMoney(atmId,account);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(),HttpStatus.OK);
         }
 
 
-        return new ResponseEntity<>("Success",HttpStatus.OK);
+        return new ResponseEntity<>("Pick Success",HttpStatus.OK);
     }
 }

@@ -2,23 +2,18 @@ package com.atm.converter;
 
 import com.atm.entity.CustomerEntity;
 import com.atm.model.Customer;
+import org.mapstruct.Mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomerConverter implements CommonConverter<CustomerEntity, Customer> {
-    @Autowired
-    private ModelMapper modelMapper;
+@Mapper
+public interface CustomerConverter extends CommonConverter<CustomerEntity, Customer> {
     @Override
-    public CustomerEntity toEntity(Customer customer) {
-        CustomerEntity customerEntity = modelMapper.map(customer,CustomerEntity.class);
-        return customerEntity;
-    }
+    CustomerEntity toEntity(Customer customer);
 
     @Override
-    public Customer toModel(CustomerEntity customerEntity) {
-        Customer customer = modelMapper.map(customerEntity,Customer.class);
-        return customer;
-    }
+    Customer toModel(CustomerEntity customerEntity);
+
 }

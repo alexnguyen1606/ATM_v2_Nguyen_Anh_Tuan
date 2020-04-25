@@ -2,26 +2,22 @@ package com.atm.converter;
 
 import com.atm.entity.AccountEntity;
 import com.atm.model.Account;
+import org.mapstruct.MapMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
 @Component
-public class AccountConverter implements CommonConverter<AccountEntity, Account> {
-
-    @Autowired
-    private ModelMapper modelMapper;
-    @Override
-    public AccountEntity toEntity(Account account){
-        AccountEntity accountEntity = modelMapper.map(account,AccountEntity.class);
-        return accountEntity;
-    }
+@Mapper
+public interface AccountConverter extends CommonConverter<AccountEntity, Account> {
 
     @Override
-    public Account toModel(AccountEntity accountEntity){
-        Account account = modelMapper.map(accountEntity,Account.class);
-        account.setFullName(accountEntity.getCustomer().getFullName());
-        return account;
-    }
+    AccountEntity toEntity(Account account);
+
+    @Mapping(source = "customer.fullName",target = "fullName")
+    @Override
+    Account toModel(AccountEntity accountEntity);
 }
