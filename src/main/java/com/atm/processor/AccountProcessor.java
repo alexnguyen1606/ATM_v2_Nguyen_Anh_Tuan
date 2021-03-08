@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class AccountProcessor  {
     @Autowired
     private AccountService accountService;
-    @Autowired(required=false)
+    @Autowired
     private AccountConverter converter;
     public Account findByAccountNumber(String accountNumber) throws Exception {
         if (accountNumber.equals("")){

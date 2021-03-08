@@ -31,8 +31,8 @@
         </dependency>
 
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -57,7 +57,16 @@
             <artifactId>mapstruct-jdk8</artifactId>
             <version>${mapstruct.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-apt</artifactId>
+            <version>4.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-jpa</artifactId>
+            <version>4.2.2</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -82,7 +91,7 @@
                     <target>${java.version}</target>
                     <annotationProcessors>
                         <annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor</annotationProcessor>
-                        <!--<annotationProcessor>com.querydsl.apt.jpa.JPAAnnotationProcessor</annotationProcessor>-->
+                        <annotationProcessor>com.querydsl.apt.jpa.JPAAnnotationProcessor</annotationProcessor>
                         <annotationProcessor>org.mapstruct.ap.MappingProcessor</annotationProcessor>
                     </annotationProcessors>
                     <annotationProcessorPaths>
@@ -92,26 +101,26 @@
                             <version>${lombok.version}</version>
                         </path>
 
-                        <!--<path>-->
-                            <!--<groupId>com.querydsl</groupId>-->
-                            <!--<artifactId>querydsl-core</artifactId>-->
-                            <!--<version>${querydsl.version}</version>ø-->
-                        <!--</path>-->
-                        <!--<path>-->
-                            <!--<groupId>com.querydsl</groupId>-->
-                            <!--<artifactId>querydsl-apt</artifactId>-->
-                            <!--<version>${querydsl.version}</version>-->
-                        <!--</path>-->
-                        <!--<path>-->
-                            <!--<groupId>com.mysema.codegen</groupId>-->
-                            <!--<artifactId>codegen</artifactId>-->
-                            <!--<version>0.6.8</version>-->
-                        <!--</path>-->
-                        <!--<path>-->
-                            <!--<groupId>org.eclipse.persistence</groupId>-->
-                            <!--<artifactId>javax.persistence</artifactId>-->
-                            <!--<version>2.1.0</version>-->
-                        <!--</path>-->
+                        <path>
+                            <groupId>com.querydsl</groupId>
+                            <artifactId>querydsl-core</artifactId>
+                            <version>${querydsl.version}</version>
+                        </path>
+                        <path>
+                            <groupId>com.querydsl</groupId>
+                            <artifactId>querydsl-apt</artifactId>
+                            <version>${querydsl.version}</version>
+                        </path>
+                        <path>
+                            <groupId>com.mysema.codegen</groupId>
+                            <artifactId>codegen</artifactId>
+                            <version>0.6.8</version>
+                        </path>
+                        <path>
+                            <groupId>org.eclipse.persistence</groupId>
+                            <artifactId>javax.persistence</artifactId>
+                            <version>2.1.0</version>
+                        </path>
                         <path>
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
